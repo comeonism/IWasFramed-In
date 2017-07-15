@@ -11,7 +11,7 @@ class Utils {
     private final static Logger logger = Logger.getLogger(Utils.class.getName());
     static final String HOME_DIRECTORY = "./Images/";
     static final String EMPTY_IMAGE = HOME_DIRECTORY + "empty_directory.png";
-    static final String BUCKET = "i-was-framed";
+    static final String BUCKET = "";
 
     static ObservableList<String> getSubdirs(File directory) {
         List<String> dirs = new ArrayList<>();
