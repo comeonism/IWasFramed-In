@@ -60,7 +60,7 @@ public class IWasFramedIn extends Application {
                     stage.setScene(setToDirPane());
                     stage.setFullScreen(true);
                     break;
-                case ESCAPE:
+                case END:
                     System.exit(1);
                     break;
             }
@@ -76,7 +76,7 @@ public class IWasFramedIn extends Application {
         imageScene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case UP:
-                case ESCAPE:
+                case HOME:
                     stage.setScene(setToDirPane());
                     stage.setFullScreen(true);
                     break;
