@@ -21,14 +21,10 @@ class AWSHandler {
 
     static void fetch() {
         logger.info("connecting to S3 and setting credentials");
-
-//        s3Client = new AmazonS3Client(new ProfileCredentialsProvider().getCredentials());
-//        s3Client = new AmazonS3Client(DefaultAWSCredentialsProviderChain.getInstance());
-//        s3Client = new AmazonS3Client();
-
+        
         s3Client = AmazonS3ClientBuilder.standard()
-                                        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAJ7ZR5U2CXQT5N3AA", "HIsfVxeZwFUx9O0jlNPBSl+Qm5PNMtUQ+Haq6/7D")))
-                                        .withRegion("eu-west-2")
+                                        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("", "")))
+                                        .withRegion("")
                                         .build();
 
         ArrayList<String> bucketContents = getBucketContents();
