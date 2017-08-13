@@ -1,5 +1,10 @@
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 
 import java.io.File;
@@ -12,11 +17,20 @@ import java.util.logging.Logger;
 
 class AWSHandler {
     private final static Logger logger = Logger.getLogger(AWSHandler.class.getName());
-    private static AmazonS3Client s3Client;
+    private static AmazonS3 s3Client;
 
     static void fetch() {
         logger.info("connecting to S3 and setting credentials");
-        s3Client = new AmazonS3Client(new ProfileCredentialsProvider().getCredentials());
+
+//        s3Client = new AmazonS3Client(new ProfileCredentialsProvider().getCredentials());
+//        s3Client = new AmazonS3Client(DefaultAWSCredentialsProviderChain.getInstance());
+//        s3Client = new AmazonS3Client();
+
+        s3Client = AmazonS3ClientBuilder.standard()
+                                        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIAJ7ZR5U2CXQT5N3AA", "HIsfVxeZwFUx9O0jlNPBSl+Qm5PNMtUQ+Haq6/7D")))
+                                        .withRegion("eu-west-2")
+                                        .build();
+
         ArrayList<String> bucketContents = getBucketContents();
 
         try {
