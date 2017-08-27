@@ -29,5 +29,5 @@ Now, you might be wondering: 'Aleks, why the shitty controls?', because the plan
     
 ## Technologies used
 
-- JavaFX for GUI stuff;
+- ~JavaFX~ Java Swing for GUI stuff (because Raspbian doesn't seem to want to play along with JavaFX);
 - Amazon AWS stuff for fetching and deleting things from S3.
