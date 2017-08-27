@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DirListCellRenderer extends JLabel implements ListCellRenderer {
-    public DirListCellRenderer() {
+    DirListCellRenderer() {
         setOpaque(true);
         setPreferredSize(new Dimension(40, 40));
         setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));

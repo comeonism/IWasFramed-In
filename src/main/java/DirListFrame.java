@@ -3,11 +3,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.logging.Logger;
 
 class DirListFrame extends JPanel {
-    private JList<String> dirList;
+    private final static Logger logger = Logger.getLogger(DirListFrame.class.getName());
+    private static JList<String> dirList;
 
     private DirListFrame() {
+        logger.info("setting up the Directory List frame");
         setLayout(new BorderLayout());
 
         File imagesHome = new File(Utils.HOME_DIRECTORY);
@@ -21,14 +24,20 @@ class DirListFrame extends JPanel {
             defaultModel.addElement(subdir);
         }
 
+        logger.info("got all directories");
+
         dirList.setCellRenderer(new DirListCellRenderer());
         dirList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         dirList.setSelectedIndex(0);
 
+        if (dirList.getModel().getSize() > 0) {
+            dirList.setSelectedIndex(0);
+        }
+
         dirList.addKeyListener(new KeyListener(){
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_DELETE){
+                if (e.getKeyCode() == KeyEvent.VK_DELETE){
                     String selectedDir = dirList.getSelectedValue();
                     int selectedDirIndex = dirList.getSelectedIndex();
                     AWSHandler.delete(selectedDir);
@@ -36,6 +45,12 @@ class DirListFrame extends JPanel {
                     ((DefaultListModel) dirList.getModel()).remove(selectedDirIndex);
 
                     Utils.deleteFilesIn(selectedDir);
+                } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4){
+                    ScreenController.setToWhite();
+                } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6){
+                    ScreenController.setToImages(dirList.getSelectedValue());
+                } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+                    System.exit(0);
                 }
             }
 
@@ -46,13 +61,9 @@ class DirListFrame extends JPanel {
             public void keyReleased(KeyEvent e) {}
         });
 
-        if (dirList.getModel().getSize() > 0) {
-            dirList.setSelectedIndex(0);
-        }
-
         JScrollPane scrollPane = new JScrollPane(dirList);
-
         add(scrollPane);
+        logger.info("setup done");
     }
 
     static JFrame getDirFrame() {

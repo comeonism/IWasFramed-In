@@ -21,7 +21,7 @@ class AWSHandler {
 
     static void fetch() {
         logger.info("connecting to S3 and setting credentials");
-        
+
         s3Client = AmazonS3ClientBuilder.standard()
                                         .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("", "")))
                                         .withRegion("")

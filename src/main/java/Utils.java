@@ -1,8 +1,3 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import javax.swing.*;
-import javax.swing.event.ListDataListener;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +6,7 @@ import java.util.logging.Logger;
 
 class Utils {
     private final static Logger logger = Logger.getLogger(Utils.class.getName());
+
     static final String HOME_DIRECTORY = "./Images/";
     static final String EMPTY_IMAGE = HOME_DIRECTORY + "empty_directory.png";
     static final String BUCKET = "i-was-framed";
@@ -20,7 +16,7 @@ class Utils {
 
     static String[] getSubdirs(File directory) {
         List<String> dirs = new ArrayList<>();
-        for(File dir : directory.listFiles()) if (dir.isDirectory()) dirs.add(dir.getName());
+        for (File dir : directory.listFiles()) if (dir.isDirectory()) dirs.add(dir.getName());
         return dirs.toArray(new String[dirs.size()]);
     }
 
@@ -37,7 +33,13 @@ class Utils {
         dir.delete();
     }
 
-    static Dimension getDimensions() {
-        return Toolkit.getDefaultToolkit().getScreenSize();
+    private static Dimension getDimensions() { return Toolkit.getDefaultToolkit().getScreenSize(); }
+
+    static Dimension getScaledDimension(Dimension imageSize) {
+        double widthRatio = getDimensions().getWidth() / imageSize.getWidth();
+        double heightRatio = getDimensions().getHeight() / imageSize.getHeight();
+        double ratio = Math.min(widthRatio, heightRatio);
+
+        return new Dimension((int) (imageSize.width * ratio), (int) (imageSize.height * ratio));
     }
 }
